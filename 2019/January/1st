@@ -1,0 +1,39 @@
+// https://practice.geeksforgeeks.org/problems/find-missing-and-repeating/0
+
+import java.util.*;
+public class Main {
+    private static Scanner sc = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        byte ntc = sc.nextByte();
+        while (ntc-- > 0) {
+            int n = sc.nextInt();
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++) {
+                a[i] = sc.nextInt();
+            }
+            System.out.println(isPeak(a, n)[0] + " " + isPeak(a, n)[1]);
+        }
+    }
+
+    private static int[] isPeak (int[] arr, int length){
+        int[] finalArr = new int[2];
+        Arrays.sort(arr);
+        boolean repeated=false;
+        boolean missing=false;
+        for(int j=0; j<length-1; j++){
+            if(!repeated && (arr[j] - j) > 1 && !missing){
+                finalArr[1] = j+1;
+                missing=true;
+            }else if(repeated && arr[j+1]-arr[j] > 1 && !missing){
+                finalArr[1] = arr[j]+1;
+                missing=true;
+            }
+            if(arr[j] == arr[j+1] && !repeated){
+                finalArr[0] = arr[j];
+                repeated = true;
+            }
+        }
+        return finalArr;
+    }
+}
