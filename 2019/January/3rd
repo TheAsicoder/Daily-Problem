@@ -1,0 +1,86 @@
+// https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=615&page=show_problem&problem=342
+
+import java.util.*;
+public class Day3 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNext()) {
+            StringBuilder str = new StringBuilder(String.valueOf(sc.nextLine()));
+            StringBuilder sb2 = new StringBuilder();
+            boolean isPalidrome = false, isRegularPalindrome = true, isMirroredString = false, isMirroredPalindrome = false;
+
+            if(str == (str.reverse())) {
+                isPalidrome = true;
+            }
+            if(str.length()%2 == 1) {
+                int i = (str.length()/2);
+                int j = i +2;
+                while(i > 0) {
+                    if(str.charAt(i) != str.charAt(j)) {
+                        isRegularPalindrome = false;
+                        break;
+                    }
+                    i--;
+                    j++;
+                }
+            }
+            for(int i=0; i<str.length(); i++) {
+                char c = str.charAt(i);
+                switch (c) {
+                    case 'E' :
+                        sb2.append(String.valueOf('3'));
+                        break;
+
+                    case '3' :
+                        sb2.append(String.valueOf('E'));
+                        break;
+
+                    case 'J' :
+                        sb2.append(String.valueOf('L'));
+                        break;
+
+                    case 'L' :
+                        sb2.append(String.valueOf('J'));
+                        break;
+
+                    case 'S' :
+                        sb2.append(String.valueOf('2'));
+                        break;
+
+                    case '2' :
+                        sb2.append(String.valueOf('S'));
+                        break;
+
+                    case 'Z' :
+                        sb2.append(String.valueOf('5'));
+                        break;
+
+                    case '5' :
+                        sb2.append(String.valueOf('Z'));
+                        break;
+
+                    default:
+                        sb2.append(str.charAt(i));
+                        break;
+                }
+            }
+            if(str.reverse() == sb2)
+                isMirroredString = true;
+
+            if(isPalidrome && isMirroredString) {
+                isMirroredPalindrome = true;
+            }
+        }
+    }
+
+    public static void result(StringBuilder str, boolean isPalindrome, boolean isRegularPalindrome, boolean isMirroredString, boolean isMirroredPalindrome) {
+        if(!isPalindrome && !isMirroredString)
+            System.out.println(str + " -- " + "is not a palindrome.");
+        else if(isPalindrome && isMirroredString)
+            System.out.println(str + " -- " + "is a regular palindrome.");
+        else if(!isPalindrome && isMirroredString)
+            System.out.println(str + " -- " + "is a mirrored string.");
+        else if(isPalindrome && isMirroredString)
+            System.out.println(str + " -- " + "is a mirrored palindrome.");
+    }
+}
